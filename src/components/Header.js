@@ -24,7 +24,8 @@ class Header extends React.Component {
 
   render() {
     return (
-        <nav>
+      <div>
+        <nav >
           <div className="nav-wrapper">
             <Link
               to={this.props.auth ? '/surveys' : '/' }
@@ -37,6 +38,7 @@ class Header extends React.Component {
             </ul>
           </div>
         </nav>
+      </div>
     )
   }
 }
