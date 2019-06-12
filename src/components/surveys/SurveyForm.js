@@ -1,7 +1,10 @@
 import _ from 'lodash'
 import React from 'react'
 import { reduxForm, Field } from 'redux-form'
+import {Link} from 'react-router-dom'
 import SurveyField from './SurveyField'
+import validateEmails from '../../utils/validateEmails'
+
 
 const FIELDS = [
   {label: 'Survey Title', name: 'title'},
@@ -20,15 +23,39 @@ class SurveyForm extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.props.handleSubmit(values => console.log(values))}>
+        <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
           {this.renderFields()}
-          <button type='submit'>Submit</button>
+          <Link to='/surveys' className='red btn-flat white-text'>
+            Cancel
+          </Link>
+          <button type='submit' className='teal btn-flat right white-text'>
+            Next
+            <i className='material-icons right'>done</i>
+          </button>
         </form>
       </div>
     )
   }
 }
 
+// to make sure input is filled in and deal with error
+const validate = values => {
+  const errors = {}
+
+  errors.emails = validateEmails(values.emails || '')
+
+  _.each(FIELDS, ({name}) => {
+    if (!values[name]) {
+      errors[name] = `Please provide ${name}`
+    }
+  })
+
+
+  return errors
+}
+
 export default reduxForm({
-  form:'surveyForm'
+  validate,
+  form:'surveyForm',
+  
 })(SurveyForm)
