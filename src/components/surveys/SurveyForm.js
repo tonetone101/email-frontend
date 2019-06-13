@@ -50,5 +50,5 @@ const validate = values => {
 export default reduxForm({
   validate,
   form:'surveyForm',
-  destroyOnUnmount: false
+  destroyOnUnmount: false 
 })(SurveyForm)
