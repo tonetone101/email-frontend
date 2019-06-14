@@ -35,7 +35,7 @@ class SurveyForm extends React.Component {
 const validate = values => {
   const errors = {}
 
-  errors.emails = validateEmails(values.emails || '')
+  errors.recipients = validateEmails(values.recipients || '')
 
   _.each(formFields, ({name}) => {
     if (!values[name]) {
@@ -50,5 +50,5 @@ const validate = values => {
 export default reduxForm({
   validate,
   form:'surveyForm',
-  destroyOnUnmount: false 
+  destroyOnUnmount: false
 })(SurveyForm)
